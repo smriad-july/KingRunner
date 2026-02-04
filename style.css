@@ -17,8 +17,9 @@ p {
 
 #game {
   position: relative;
-  width: 700px;
-  height: 750px;
+  width: 96%;
+  max-width: 700px;
+  height: calc(100vh - 180px); /* Full viewport height - top titles */
   margin: 0 auto;
   background: #f7f7f7;
   border-radius: 20px;
