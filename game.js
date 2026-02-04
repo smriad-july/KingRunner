@@ -23,7 +23,7 @@ function createEnemy() {
 
   const enemy = document.createElement("div");
   enemy.classList.add("enemy");
-  enemy.style.left = Math.random() * 360 + "px";
+  enemy.style.left = Math.random() * 350 + "px";
   game.appendChild(enemy);
 
   let enemyY = -40;
