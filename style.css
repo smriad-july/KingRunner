@@ -1,0 +1,45 @@
+body {
+  background: #111;
+  color: #fff;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  margin: 10px 0;
+}
+
+#game {
+  position: relative;
+  margin: 20px auto;
+  width: 400px;
+  height: 500px;
+  background: linear-gradient(#222, #000);
+  overflow: hidden;
+  border: 3px solid gold;
+  border-radius: 10px;
+}
+
+#player {
+  position: absolute;
+  bottom: 10px;
+  left: 170px;
+  width: 60px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.enemy {
+  position: absolute;
+  top: -40px;
+  width: 40px;
+  height: 40px;
+  background: red;
+  border-radius: 50%;
+}
+
+#score {
+  font-size: 20px;
+  margin-top: 10px;
+}
