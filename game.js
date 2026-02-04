@@ -21,50 +21,41 @@ function startMusic() {
 }
 
 // ================= PLAYER MOVE =================
-function movePlayer(direction) {
-  if (gameOver) return;
-
-  if (direction === "left" && playerX > 0) {
-    playerX -= 30;
-  }
-
-  if (direction === "right" && playerX < 630) {
-    playerX += 30;
-  }
-
+function setPlayerX(x) {
+  const minX = 0;
+  const maxX = 630; // game width - player width
+  playerX = Math.max(minX, Math.min(maxX, x));
   player.style.left = playerX + "px";
 }
 
-// Keyboard controls
+// Keyboard controls (fast)
 document.addEventListener("keydown", (e) => {
-  if (e.key === "ArrowLeft") movePlayer("left");
-  if (e.key === "ArrowRight") movePlayer("right");
+  if (gameOver) return;
+
+  if (e.key === "ArrowLeft") setPlayerX(playerX - 40);
+  if (e.key === "ArrowRight") setPlayerX(playerX + 40);
 });
 
-// ================= TOUCH CONTROLS =================
+// ================= TOUCH CONTROLS (IMPROVED) =================
 let touchStartX = 0;
-let touchEndX = 0;
+let playerStartX = 0;
 
 game.addEventListener("touchstart", (e) => {
-  touchStartX = e.changedTouches[0].screenX;
+  touchStartX = e.touches[0].clientX;
+  playerStartX = playerX;
 }, { passive: true });
 
-game.addEventListener("touchend", (e) => {
-  touchEndX = e.changedTouches[0].screenX;
-  handleSwipe();
+game.addEventListener("touchmove", (e) => {
+  if (gameOver) return;
+
+  const currentX = e.touches[0].clientX;
+  const deltaX = currentX - touchStartX;
+
+  // MULTIPLIER makes it feel faster on mobile
+  const speedMultiplier = 1.4;
+
+  setPlayerX(playerStartX + deltaX * speedMultiplier);
 }, { passive: true });
-
-function handleSwipe() {
-  const swipeDistance = touchEndX - touchStartX;
-
-  if (Math.abs(swipeDistance) < 30) return; // ignore tiny swipes
-
-  if (swipeDistance > 0) {
-    movePlayer("right");
-  } else {
-    movePlayer("left");
-  }
-}
 
 // ================= ENEMY =================
 function createEnemy() {
